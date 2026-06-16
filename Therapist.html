@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tattva Wellness - Therapist Portal</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#1F3B2D',
+gold: '#C8A96B',
+cream: '#F7F3EB'
+}
+}
+}
+}
+</script>
+
+<style>
+.page { display:none; }
+.page.active { display:block; }
+</style>
+
+</head>
+
+<body class="bg-cream">
+
+<div class="flex min-h-screen">
+
+    <!-- Sidebar -->
+
+    <aside class="w-72 bg-primary text-white">
+
+        <div class="p-6 border-b border-green-800">
+            <h1 class="text-2xl font-bold text-gold">
+                Tattva Wellness
+            </h1>
+            <p class="text-sm mt-1">Therapist Portal</p>
+        </div>
+
+        <div class="p-4 space-y-2">
+
+            <button onclick="showPage('dashboard')"
+                class="w-full text-left p-3 rounded hover:bg-green-900">
+                Dashboard
+            </button>
+
+            <button onclick="showPage('schedule')"
+                class="w-full text-left p-3 rounded hover:bg-green-900">
+                Schedule & Appointments
+            </button>
+
+            <button onclick="showPage('roster')"
+                class="w-full text-left p-3 rounded hover:bg-green-900">
+                My Roster
+            </button>
+
+            <button onclick="showPage('performance')"
+                class="w-full text-left p-3 rounded hover:bg-green-900">
+                Performance & Incentives
+            </button>
+
+            <button onclick="showPage('profile')"
+                class="w-full text-left p-3 rounded hover:bg-green-900">
+                Profile & Certifications
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- Content -->
+
+    <main class="flex-1 p-8">
+
+        <!-- DASHBOARD -->
+
+        <section id="dashboard" class="page active">
+
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-primary">
+                    Welcome, Priya Sharma
+                </h2>
+                <p class="text-gray-600">
+                    Senior Ayurveda Therapist
+                </p>
+            </div>
+
+            <div class="grid grid-cols-4 gap-5 mb-8">
+
+                <div class="bg-white rounded-xl shadow p-5">
+                    <p class="text-gray-500">Today's Appointments</p>
+                    <h3 class="text-3xl font-bold mt-2">8</h3>
+                </div>
+
+                <div class="bg-white rounded-xl shadow p-5">
+                    <p class="text-gray-500">Revenue Generated</p>
+                    <h3 class="text-3xl font-bold mt-2">₹18,500</h3>
+                </div>
+
+                <div class="bg-white rounded-xl shadow p-5">
+                    <p class="text-gray-500">Rating</p>
+                    <h3 class="text-3xl font-bold mt-2">4.9 ⭐</h3>
+                </div>
+
+                <div class="bg-white rounded-xl shadow p-5">
+                    <p class="text-gray-500">Monthly Incentive</p>
+                    <h3 class="text-3xl font-bold mt-2">₹7,200</h3>
+                </div>
+
+            </div>
+
+            <div class="grid grid-cols-2 gap-6">
+
+                <div class="bg-white p-6 rounded-xl shadow">
+                    <h3 class="font-bold text-xl mb-4">
+                        Today's Summary
+                    </h3>
+
+                    <ul class="space-y-2">
+                        <li>✔ 6 Services Completed</li>
+                        <li>✔ 2 Upcoming Appointments</li>
+                        <li>✔ 3 Product Recommendations Sold</li>
+                        <li>✔ Customer Satisfaction 98%</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow">
+                    <h3 class="font-bold text-xl mb-4">
+                        Quick Actions
+                    </h3>
+
+                    <div class="space-x-3">
+
+                        <button onclick="showPage('schedule')"
+                            class="bg-primary text-white px-4 py-2 rounded">
+                            View Schedule
+                        </button>
+
+                        <button onclick="showPage('profile')"
+                            class="bg-gold text-primary px-4 py-2 rounded">
+                            View Profile
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- APPOINTMENTS -->
+
+        <section id="schedule" class="page">
+
+            <h2 class="text-3xl font-bold text-primary mb-6">
+                Schedule & Appointments
+            </h2>
+
+            <div class="bg-white rounded-xl shadow p-6">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search Guest"
+                    class="border p-2 rounded w-72 mb-4"
+                    onkeyup="searchGuest()">
+
+                <table class="w-full">
+
+                    <thead>
+                        <tr class="border-b">
+                            <th class="text-left py-3">Time</th>
+                            <th class="text-left">Guest</th>
+                            <th class="text-left">Service</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="guestTable">
+
+                        <tr class="border-b">
+                            <td class="py-4">10:00 AM</td>
+                            <td>Rahul Sharma</td>
+                            <td>Deep Tissue Massage</td>
+                            <td>Upcoming</td>
+                        </tr>
+
+                        <tr class="border-b">
+                            <td class="py-4">12:00 PM</td>
+                            <td>Neha Gupta</td>
+                            <td>Ayurveda Therapy</td>
+                            <td>Completed</td>
+                        </tr>
+
+                        <tr class="border-b">
+                            <td class="py-4">2:00 PM</td>
+                            <td>Rohan Verma</td>
+                            <td>Balinese Massage</td>
+                            <td>Upcoming</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- ROSTER -->
+
+        <section id="roster" class="page">
+
+            <h2 class="text-3xl font-bold text-primary mb-6">
+                My Roster
+            </h2>
+
+            <div class="bg-white rounded-xl shadow p-6">
+
+                <table class="w-full">
+
+                    <thead>
+                        <tr class="border-b">
+                            <th>Day</th>
+                            <th>Shift</th>
+                            <th>Outlet</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr class="border-b">
+                            <td>Monday</td>
+                            <td>9 AM - 6 PM</td>
+                            <td>DLF Cyber Hub</td>
+                        </tr>
+
+                        <tr class="border-b">
+                            <td>Tuesday</td>
+                            <td>9 AM - 6 PM</td>
+                            <td>DLF Cyber Hub</td>
+                        </tr>
+
+                        <tr class="border-b">
+                            <td>Wednesday</td>
+                            <td>Off</td>
+                            <td>-</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- PERFORMANCE -->
+
+        <section id="performance" class="page">
+
+            <h2 class="text-3xl font-bold text-primary mb-6">
+                Performance & Incentives
+            </h2>
+
+            <div class="grid grid-cols-2 gap-6">
+
+                <div class="bg-white rounded-xl shadow p-6">
+
+                    <h3 class="font-bold mb-4">
+                        Monthly Performance
+                    </h3>
+
+                    <p>Services Delivered: 142</p>
+                    <p>Revenue Generated: ₹2,45,000</p>
+                    <p>Utilization: 87%</p>
+                    <p>Customer Rating: 4.9</p>
+
+                </div>
+
+                <div class="bg-white rounded-xl shadow p-6">
+
+                    <h3 class="font-bold mb-4">
+                        Incentives & Commission
+                    </h3>
+
+                    <p>Service Commission: ₹11,500</p>
+                    <p>Product Commission: ₹3,200</p>
+                    <p>Target Bonus: ₹7,200</p>
+
+                    <hr class="my-3">
+
+                    <h4 class="font-bold">
+                        Total Earnings
+                    </h4>
+
+                    <h3 class="text-3xl font-bold text-green-700">
+                        ₹21,900
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- PROFILE -->
+
+        <section id="profile" class="page">
+
+            <h2 class="text-3xl font-bold text-primary mb-6">
+                Profile & Certifications
+            </h2>
+
+            <div class="bg-white rounded-xl shadow p-6">
+
+                <div class="grid grid-cols-2 gap-8">
+
+                    <div>
+
+                        <h3 class="font-bold mb-3">
+                            Personal Information
+                        </h3>
+
+                        <p>Name: Priya Sharma</p>
+                        <p>Employee ID: TH-1021</p>
+                        <p>Outlet: DLF Cyber Hub</p>
+                        <p>Experience: 8 Years</p>
+
+                    </div>
+
+                    <div>
+
+                        <h3 class="font-bold mb-3">
+                            Skills
+                        </h3>
+
+                        <ul class="list-disc ml-5">
+                            <li>Ayurveda Therapy</li>
+                            <li>Deep Tissue Massage</li>
+                            <li>Swedish Massage</li>
+                            <li>Balinese Massage</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <hr class="my-6">
+
+                <h3 class="font-bold mb-4">
+                    Certifications
+                </h3>
+
+                <table class="w-full">
+
+                    <thead>
+                        <tr class="border-b">
+                            <th>Certification</th>
+                            <th>Expiry</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr class="border-b">
+                            <td>Ayurveda Specialist</td>
+                            <td>15-Dec-2027</td>
+                            <td>Active</td>
+                        </tr>
+
+                        <tr class="border-b">
+                            <td>Deep Tissue Expert</td>
+                            <td>20-May-2028</td>
+                            <td>Active</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script>
+
+function showPage(pageId){
+
+document.querySelectorAll('.page').forEach(page=>{
+page.classList.remove('active');
+});
+
+document.getElementById(pageId).classList.add('active');
+}
+
+function searchGuest(){
+
+let input =
+document.getElementById('searchInput').value.toLowerCase();
+
+let rows =
+document.querySelectorAll('#guestTable tr');
+
+rows.forEach(row => {
+
+let text = row.innerText.toLowerCase();
+
+row.style.display =
+text.includes(input) ? '' : 'none';
+
+});
+}
+
+</script>
+
+</body>
+</html>
